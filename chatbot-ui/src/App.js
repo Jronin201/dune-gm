@@ -1,15 +1,13 @@
 import { useState } from "react";
 import "./App.css";
+import { fetchD20 } from "./api";
 
 function App() {
   const [messages, setMessages] = useState([]);
 
   const rollD20 = async () => {
     try {
-      const res = await fetch(
-        "https://dune-ttrpg-gm-tools.onrender.com/roll/1d20"
-      );
-      const { result } = await res.json();
+      const result = await fetchD20();
       setMessages((msgs) => [...msgs, `\ud83c\udf00 You rolled a ${result}`]);
     } catch (err) {
       setMessages((msgs) => [...msgs, `\u274c Roll failed: ${err.message}`]);
