@@ -16,6 +16,11 @@ public/*.ico
 public/*.png
 public/*.jpg
 public/*.svg
+chatbot-ui/public/*.ico
+chatbot-ui/public/*.png
+chatbot-ui/public/*.jpg
+chatbot-ui/public/*.svg
+chatbot-ui/build/
 *.webmanifest
 *.map
 
