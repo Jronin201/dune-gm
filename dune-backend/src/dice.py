@@ -4,6 +4,12 @@ import random
 app = FastAPI()
 
 
+@app.get("/")
+def root():
+    """Simple index confirming the API is running."""
+    return {"welcome": "Dune dice API online"}
+
+
 def roll_1d20():
     """Rolls a single 20-sided die."""
     result = random.randint(1, 20)
