@@ -1,7 +1,0 @@
-
-> chatbot-ui@1.0.0 build
-> react-scripts build
-
-Could not find a required file.
-  Name: index.html
-  Searched in: /workspace/dune-ttrpg-gm-tools/chatbot-ui/public
