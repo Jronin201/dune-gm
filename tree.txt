@@ -1,6 +1,5 @@
 .
 ├── README.md
-├── app.py
 ├── chatbot-ui
 │   ├── README.md
 │   ├── npm-packages.txt
@@ -33,9 +32,11 @@
 │   ├── requirements.txt
 │   └── src
 │       └── dice.py
-├── npc.py
-├── requirements.txt
 ├── snapshot.sh
 └── tree.txt
 
+<<<<<<< HEAD
 7 directories, 32 files
+=======
+6 directories, 22 files
+>>>>>>> 719a52052be853a4c02fa2da5a41f06d52bceb09
