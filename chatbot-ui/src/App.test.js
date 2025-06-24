@@ -14,3 +14,10 @@ test('roll button fetches dice', async () => {
   fireEvent.click(screen.getByText(/Roll 1d20/i));
   await waitFor(() => screen.getByText(/You rolled a 5/i));
 });
+
+test('roll 2d20 button fetches dice array', async () => {
+  jest.spyOn(api, 'fetch2D20').mockResolvedValue([3, 17]);
+  render(<App />);
+  fireEvent.click(screen.getByText(/Roll 2d20/i));
+  await waitFor(() => screen.getByText(/You rolled 3 and 17/i));
+});
