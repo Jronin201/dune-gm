@@ -1,23 +1,7 @@
 .
 ├── README.md
-├── app.py
 ├── chatbot-ui
 │   ├── README.md
-│   ├── build
-│   │   ├── asset-manifest.json
-│   │   ├── index.html
-│   │   ├── manifest.json
-│   │   ├── robots.txt
-│   │   └── static
-│   │       ├── css
-│   │       │   ├── main.f855e6bc.css
-│   │       │   └── main.f855e6bc.css.map
-│   │       └── js
-│   │           ├── 453.97b90a09.chunk.js
-│   │           ├── 453.97b90a09.chunk.js.map
-│   │           ├── main.d91a8f62.js
-│   │           ├── main.d91a8f62.js.LICENSE.txt
-│   │           └── main.d91a8f62.js.map
 │   ├── npm-packages.txt
 │   ├── package-lock.json
 │   ├── package.json
@@ -40,9 +24,7 @@
 │   ├── requirements.txt
 │   └── src
 │       └── dice.py
-├── npc.py
-├── requirements.txt
 ├── snapshot.sh
 └── tree.txt
 
-10 directories, 36 files
+6 directories, 22 files

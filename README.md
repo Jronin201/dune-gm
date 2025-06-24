@@ -15,9 +15,9 @@ Deploy as an API backend with FastAPI. Connect endpoints to your OpenAI Playgrou
 
 ## Structure
 
-- `app.py`       - FastAPI entrypoint, routes
-- `dice.py`      - Dice rolling mechanics
-- `npc.py`       - NPC generation logic
+- `dune-backend/src/dice.py` - FastAPI app and API routes
+- `dice.py`      - Standalone dice helpers
+- `chatbot-ui`   - React frontend
 
 ---
 
