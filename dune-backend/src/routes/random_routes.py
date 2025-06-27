@@ -2,7 +2,7 @@ from pathlib import Path
 from fastapi import APIRouter
 
 # Required for deployment on Render: import from local ``utils`` package
-from utils.random_picker import pick_random_item, load_items_from_file
+from src.utils.random_picker import pick_random_item, load_items_from_file
 
 
 router = APIRouter()

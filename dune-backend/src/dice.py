@@ -5,7 +5,7 @@ import random
 
 # Required for deployment on Render: the app is executed from within ``src``
 # so we import routes as local packages instead of using the ``src`` prefix.
-from routes.random_routes import router as random_router
+from src.routes.random_routes import router as random_router
 
 app = FastAPI()
 app.include_router(random_router)
