@@ -3,7 +3,8 @@
 from fastapi import FastAPI
 import random
 
-from routes.random_routes import router as random_router
+# Required for deployment on Render: use full import path from /src root
+from src.routes.random_routes import router as random_router
 
 app = FastAPI()
 app.include_router(random_router)
