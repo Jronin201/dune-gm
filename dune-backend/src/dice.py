@@ -3,7 +3,10 @@
 from fastapi import FastAPI
 import random
 
+from routes.random_routes import router as random_router
+
 app = FastAPI()
+app.include_router(random_router)
 
 
 @app.get("/")
