@@ -12,8 +12,8 @@ HOUSES_FILE = DATA_DIR / "houses.txt"
 SETTINGS_FILE = DATA_DIR / "settings.txt"
 
 
-@router.get("/random_house_setting")
-def random_house_setting() -> dict:
+@router.get("/random_scenario")
+def get_random_scenario() -> dict:
     """Return a random house paired with a random setting."""
     houses = load_items_from_file(HOUSES_FILE)
     settings = load_items_from_file(SETTINGS_FILE)
