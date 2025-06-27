@@ -16,3 +16,9 @@ def pick_random_item(items: Sequence[str]) -> str:
     if not items:
         raise ValueError("No items to choose from")
     return random.choice(list(items))
+
+
+def pick_random_item_from_file(path: Path) -> str:
+    """Return a random non-blank line from ``path``."""
+    items = load_items_from_file(path)
+    return pick_random_item(items)
