@@ -36,7 +36,9 @@ def handle_command(raw: str) -> str | None:
         return None
 
     cmd = raw.lstrip()[1:].strip().lower()          # drop leading '|'
-    fn = COMMAND_MAP.get(cmd)
+    cmd = cmd.rstrip('!?.,')                        # drop trailing punctuation
+    cmd_key = " ".join(cmd.split()[:2])            # first two words for synonyms
+    fn = COMMAND_MAP.get(cmd) or COMMAND_MAP.get(cmd_key)
     if fn:
         return fn()
     return f"Unrecognized command: `{cmd}`"
