@@ -2,7 +2,7 @@ from pathlib import Path
 from fastapi import APIRouter, Body
 
 # Required for deployment on Render: import from local ``utils`` package
-from src.utils.random_picker import pick_random_item_from_file
+from src.utils.random_picker import pick_random_item_from_file, get_random_scenario
 from src.utils.scenario_utils import generate_adventure_text
 
 
@@ -22,19 +22,20 @@ CONSEQUENCES_FILE = DATA_DIR / "consequences.txt"
 
 
 @router.get("/random_scenario")
-def get_random_scenario() -> dict:
+def random_scenario() -> dict:
     """Return a randomly generated scenario pulling one item from each data file."""
+    return get_random_scenario()
+
+
+@router.get("/scenario_elements")
+def quick_scenario() -> dict:
+    """Return random scenario elements instantly plus a follow-up prompt."""
+    scenario = get_random_scenario()
     return {
-        "house": pick_random_item_from_file(HOUSES_FILE),
-        "setting": pick_random_item_from_file(SETTINGS_FILE),
-        "objective": pick_random_item_from_file(OBJECTIVES_FILE),
-        "antagonist": pick_random_item_from_file(ANTAGONISTS_FILE),
-        "twist": pick_random_item_from_file(TWISTS_FILE),
-        "ally": pick_random_item_from_file(ALLIES_FILE),
-        "environment": pick_random_item_from_file(ENVIRONMENT_FILE),
-        "artifact": pick_random_item_from_file(ARTIFACTS_FILE),
-        "mystical": pick_random_item_from_file(MYSTICISM_FILE),
-        "consequence": pick_random_item_from_file(CONSEQUENCES_FILE),
+        "scenario": scenario,
+        "prompt": (
+            "Would you like me to craft these elements into a powerful scenario?"
+        ),
     }
 
 
