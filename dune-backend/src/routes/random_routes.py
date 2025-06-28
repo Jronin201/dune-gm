@@ -4,8 +4,6 @@ from fastapi import APIRouter
 # Required for deployment on Render: import from local ``utils`` package
 from src.utils.random_picker import get_random_scenario
 from src.utils.scenario_utils import generate_adventure_text
-from src.utils.command_router import cmd_test
-
 
 router = APIRouter()
 
@@ -45,7 +43,10 @@ def quick_scenario() -> dict:
     scenario = get_random_scenario()
     return {
         "scenario": scenario,
-        "prompt": "Would you like me to craft these elements into a powerful scenario?"
+        "prompt": (
+            "Would you like me to craft these elements into a powerful "
+            "scenario?"
+        ),
     }
 
 # ---------------------------------------------------------------------------
@@ -61,7 +62,10 @@ def generate_scenario(scenario: dict | None = None) -> dict:
 
     return {
         "scenario": scenario,
-        "prompt": "Would you like me to craft these elements into a powerful scenario?",
+        "prompt": (
+            "Would you like me to craft these elements into a powerful "
+            "scenario?"
+        ),
     }
 
 
