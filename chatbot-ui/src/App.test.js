@@ -21,3 +21,13 @@ test('roll 2d20 button fetches dice array', async () => {
   fireEvent.click(screen.getByText(/Roll 2d20/i));
   await waitFor(() => screen.getByText(/You rolled 3 and 17/i));
 });
+
+test('sending command posts to backend', async () => {
+  jest.spyOn(api, 'sendMessage').mockResolvedValue({ response: 'ok' });
+  render(<App />);
+  fireEvent.change(screen.getByPlaceholderText(/Enter command/i), {
+    target: { value: '|test' },
+  });
+  fireEvent.submit(screen.getByTestId('command-form'));
+  await waitFor(() => screen.getByText(/ok/i));
+});

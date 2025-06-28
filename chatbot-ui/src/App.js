@@ -1,9 +1,10 @@
 import { useState } from "react";
 import "./App.css";
-import { fetchD20, fetch2D20 } from "./api";
+import { fetchD20, fetch2D20, sendMessage } from "./api";
 
 function App() {
   const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState("");
 
   const rollD20 = async () => {
     try {
@@ -24,6 +25,27 @@ function App() {
     } catch (err) {
       setMessages((msgs) => [...msgs, `\u274c Roll failed: ${err.message}`]);
     }
+  };
+
+  const sendChat = async (e) => {
+    e.preventDefault();
+    if (!input.trim()) return;
+    try {
+      const data = await sendMessage(input);
+      if (data.response) {
+        setMessages((msgs) => [...msgs, data.response]);
+      } else if (data.scenario) {
+        const lines = Object.entries(data.scenario)
+          .map(([k, v]) => `- ${k}: ${v}`)
+          .join("\n");
+        setMessages((msgs) => [...msgs, `${lines}\n${data.prompt}`]);
+      } else {
+        setMessages((msgs) => [...msgs, JSON.stringify(data)]);
+      }
+    } catch (err) {
+      setMessages((msgs) => [...msgs, `\u274c Command failed: ${err.message}`]);
+    }
+    setInput("");
   };
 
   return (
@@ -48,6 +70,20 @@ function App() {
           </div>
         ))}
       </div>
+      <form onSubmit={sendChat} data-testid="command-form" className="mt-2">
+        <input
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Enter command"
+          className="border p-2 rounded w-64"
+        />
+        <button
+          type="submit"
+          className="ml-2 px-4 py-2 rounded shadow hover:bg-gray-200"
+        >
+          Send
+        </button>
+      </form>
     </div>
   );
 }
