@@ -1,5 +1,5 @@
 from pathlib import Path
-from fastapi import APIRouter
+from fastapi import APIRouter, Body
 
 # Required for deployment on Render: import from local ``utils`` package
 from src.utils.random_picker import pick_random_item_from_file
@@ -35,6 +35,22 @@ def get_random_scenario() -> dict:
         "artifact": pick_random_item_from_file(ARTIFACTS_FILE),
         "mystical": pick_random_item_from_file(MYSTICISM_FILE),
         "consequence": pick_random_item_from_file(CONSEQUENCES_FILE),
+    }
+
+
+@router.post("/generate_scenario")
+def generate_scenario(
+    scenario: dict = Body(default=None),
+) -> dict:
+    """Return raw scenario elements and offer to craft a narrative."""
+    if scenario is None:
+        scenario = get_random_scenario()
+
+    return {
+        "scenario": scenario,
+        "prompt": (
+            "Would you like me to craft these elements into a powerful scenario?"
+        ),
     }
 
 
