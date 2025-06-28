@@ -39,18 +39,15 @@ def get_random_scenario() -> dict:
 
 
 @router.post("/generate_scenario")
-def generate_scenario(
-    scenario: dict = Body(default=None),
-) -> dict:
+def generate_scenario(scenario: dict | None = None) -> dict:
     """Return raw scenario elements and offer to craft a narrative."""
-    if scenario is None:
+    # Accept None **or** an empty dict as "no scenario provided"
+    if not scenario:  # catches None *and* {}
         scenario = get_random_scenario()
 
     return {
         "scenario": scenario,
-        "prompt": (
-            "Would you like me to craft these elements into a powerful scenario?"
-        ),
+        "prompt": "Would you like me to craft these elements into a powerful scenario?",
     }
 
 
