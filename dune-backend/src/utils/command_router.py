@@ -24,8 +24,14 @@ def cmd_create_scenario() -> str:
     return "\n".join(lines)
 
 
+def cmd_test() -> str:
+    """Return a confirmation that the command system works."""
+    return "Test Satisfactory"
+
+
 COMMAND_MAP = {
-    "create scenario": cmd_create_scenario
+    "create scenario": cmd_create_scenario,
+    "test": cmd_test,
 }
 
 
