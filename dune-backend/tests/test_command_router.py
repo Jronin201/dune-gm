@@ -18,3 +18,7 @@ def test_create_scenario_synonym_parses():
 def test_punctuation_stripped():
     result = handle_command("| create scenario?!")
     assert result.startswith(HEADER)
+
+
+def test_test_command():
+    assert handle_command("| test") == "Test Satisfactory"
