@@ -1,6 +1,7 @@
 """Minimal FastAPI app providing simple D20 dice rolls."""
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 import random
 
 # Required for deployment on Render: the app is executed from within ``src``
@@ -8,6 +9,14 @@ import random
 from src.routes.random_routes import router as random_router
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 app.include_router(random_router)
 
 
