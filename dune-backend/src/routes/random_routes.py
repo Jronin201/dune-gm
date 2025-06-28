@@ -1,11 +1,8 @@
 from pathlib import Path
-from fastapi import APIRouter, Body
+from fastapi import APIRouter
 
 # Required for deployment on Render: import from local ``utils`` package
-from src.utils.random_picker import (
-    pick_random_item_from_file,
-    get_random_scenario,
-)
+from src.utils.random_picker import get_random_scenario
 from src.utils.scenario_utils import generate_adventure_text
 from src.utils.command_router import cmd_test
 
