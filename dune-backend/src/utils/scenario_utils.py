@@ -1,4 +1,6 @@
-import openai
+from openai import OpenAI
+
+client = OpenAI()  # Uses OPENAI_API_KEY from env
 
 
 def generate_adventure_text(scenario: dict) -> str:
@@ -18,8 +20,8 @@ Scenario Elements:
 Begin your summary:
 """
 
-    response = openai.ChatCompletion.create(
-        model="gpt-4",
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
         messages=[
             {"role": "system", "content": "You are a Dune campaign narrator."},
             {"role": "user", "content": prompt},
@@ -27,4 +29,4 @@ Begin your summary:
         temperature=0.75,
     )
 
-    return response["choices"][0]["message"]["content"].strip()
+    return response.choices[0].message.content.strip()
