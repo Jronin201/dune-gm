@@ -3,6 +3,7 @@ from utils.command_router import handle_command
 
 router = APIRouter()
 
+
 @router.post("/chat")
 def chat_endpoint(message: str = Body(..., embed=True)) -> dict:
     """
@@ -14,4 +15,3 @@ def chat_endpoint(message: str = Body(..., embed=True)) -> dict:
         return {"response": cmd_response}
 
     return {"response": f"You said: {message}"}
-
