@@ -1,10 +1,11 @@
 from pathlib import Path
-from fastapi import APIRouter, Body
+from fastapi import APIRouter
 
-# local imports
+# Required for deployment on Render: import from local ``utils`` package
 from src.utils.random_picker import get_random_scenario
 from src.utils.scenario_utils import generate_adventure_text
 from src.utils.command_router import cmd_test
+
 
 router = APIRouter()
 
@@ -57,20 +58,15 @@ def generate_scenario(scenario: dict | None = None) -> dict:
     """Return elements (or supplied dict) with prompt."""
     if not scenario:                      # None *or* {}
         scenario = get_random_scenario()
+
     return {
         "scenario": scenario,
-        "prompt": "Would you like me to craft these elements into a powerful scenario?"
+        "prompt": "Would you like me to craft these elements into a powerful scenario?",
     }
 
 
-@router.get("/generate_scenario")
-def generate_scenario_get() -> dict:
-    """GET helper that always rolls fresh elements."""
-    return generate_scenario(None)
-
-# ---------------------------------------------------------------------------
-#  Simple test route for the | test command
-# ---------------------------------------------------------------------------
-
-
-# @router.get("/test")  # Example: Uncomment and implement this route as needed
+@router.post("/generate_adventure")
+def generate_adventure(scenario: dict) -> dict:
+    """Return GPT-generated adventure text for the given scenario."""
+    adventure_text = generate_adventure_text(scenario)
+    return {"adventure_text": adventure_text}
