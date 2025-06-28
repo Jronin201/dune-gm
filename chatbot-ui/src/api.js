@@ -18,33 +18,6 @@ export async function fetch2D20() {
 
 // ─────────── main chat dispatcher ───────────
 export async function sendMessage(message) {
-<<<<<<< HEAD
-  const trimmed = message.trim();
-
-  if (
-    trimmed.startsWith('|') &&
-    trimmed.slice(1).trim().toLowerCase() === 'create scenario'
-  ) {
-    const res = await fetch(`${API_BASE}/generate_scenario`);
-    if (!res.ok) {
-      throw new Error(`API error: ${res.status}`);
-    }
-    return await res.json();
-  }
-
-  if (trimmed.startsWith('|') && trimmed.slice(1).trim().toLowerCase() === 'test') {
-    const res = await fetch(`${API_BASE}/test`);
-    if (!res.ok) {
-      throw new Error(`API error: ${res.status}`);
-    }
-    return await res.json();
-  }
-
-  const res = await fetch(`${API_BASE}/chat`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ message }),
-=======
   const trimmed = message.trim().toLowerCase();
 
   // | create scenario  →  GET /scenario_elements
@@ -70,7 +43,6 @@ export async function sendMessage(message) {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ message })
->>>>>>> main
   });
   if (!res.ok) throw new Error(`API error: ${res.status}`);
   return await res.json();
