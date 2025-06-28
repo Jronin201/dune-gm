@@ -52,6 +52,16 @@ def generate_scenario(scenario: dict | None = None) -> dict:
     }
 
 
+@router.get("/generate_scenario")
+def generate_scenario_get() -> dict:
+    """GET variant of :func:`generate_scenario` returning random elements."""
+    scenario = get_random_scenario()
+    return {
+        "scenario": scenario,
+        "prompt": "Would you like me to craft these elements into a powerful scenario?",
+    }
+
+
 @router.post("/generate_adventure")
 def generate_adventure(scenario: dict) -> dict:
     """Return GPT-generated adventure text for the given scenario."""
