@@ -1,9 +1,10 @@
 from pathlib import Path
-from fastapi import APIRouter, Body
+from fastapi import APIRouter
 
 # Required for deployment on Render: import from local ``utils`` package
-from src.utils.random_picker import pick_random_item_from_file, get_random_scenario
+from src.utils.random_picker import get_random_scenario
 from src.utils.scenario_utils import generate_adventure_text
+from src.utils.command_router import cmd_test
 
 
 router = APIRouter()
@@ -50,6 +51,22 @@ def generate_scenario(scenario: dict | None = None) -> dict:
         "scenario": scenario,
         "prompt": "Would you like me to craft these elements into a powerful scenario?",
     }
+
+
+@router.get("/generate_scenario")
+def generate_scenario_get() -> dict:
+    """GET variant of :func:`generate_scenario` returning random elements."""
+    scenario = get_random_scenario()
+    return {
+        "scenario": scenario,
+        "prompt": "Would you like me to craft these elements into a powerful scenario?",
+    }
+
+
+@router.get("/test")
+def test_get() -> dict:
+    """GET variant for the ``| test`` command."""
+    return {"response": cmd_test()}
 
 
 @router.post("/generate_adventure")
