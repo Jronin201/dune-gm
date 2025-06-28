@@ -73,4 +73,4 @@ def generate_scenario_get() -> dict:
 # ---------------------------------------------------------------------------
 
 
-@router.get("/
+# @router.get("/test")  # Example: Uncomment and implement this route as needed
