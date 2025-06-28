@@ -1,4 +1,6 @@
 from openai import OpenAI
+import openai
+from fastapi import HTTPException
 
 client = OpenAI()  # Uses OPENAI_API_KEY from env
 
@@ -20,13 +22,18 @@ Scenario Elements:
 Begin your summary:
 """
 
-    response = client.chat.completions.create(
-        model="gpt-4o-mini",
-        messages=[
-            {"role": "system", "content": "You are a Dune campaign narrator."},
-            {"role": "user", "content": prompt},
-        ],
-        temperature=0.75,
-    )
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": "You are a Dune campaign narrator."},
+                {"role": "user", "content": prompt},
+            ],
+            temperature=0.75,
+        )
+    except openai.OpenAIError as exc:
+        # When the request fails (e.g., missing API key or network issue),
+        # raise an HTTPException so the FastAPI app returns a sensible error
+        raise HTTPException(status_code=503, detail=f"OpenAI API error: {exc}") from exc
 
     return response.choices[0].message.content.strip()
