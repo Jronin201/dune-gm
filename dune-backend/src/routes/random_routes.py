@@ -3,6 +3,7 @@ from fastapi import APIRouter
 
 # Required for deployment on Render: import from local ``utils`` package
 from src.utils.random_picker import pick_random_item_from_file
+from src.utils.scenario_utils import generate_adventure_text
 
 
 router = APIRouter()
@@ -35,3 +36,10 @@ def get_random_scenario() -> dict:
         "mystical": pick_random_item_from_file(MYSTICISM_FILE),
         "consequence": pick_random_item_from_file(CONSEQUENCES_FILE),
     }
+
+
+@router.post("/generate_adventure")
+def generate_adventure(scenario: dict) -> dict:
+    """Return GPT-generated adventure text for the given scenario."""
+    adventure_text = generate_adventure_text(scenario)
+    return {"adventure_text": adventure_text}
