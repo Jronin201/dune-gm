@@ -4,10 +4,11 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import random
 
-# Required for deployment on Render: the app is executed from within ``src``
-# so we import routes as local packages instead of using the ``src`` prefix.
+# src/dice.py  (top of file)
+
 from src.routes.random_routes import router as random_router
-from routes.chat_routes import router as chat_router
+from src.routes.chat_routes import router as chat_router
+
 
 app = FastAPI()
 
