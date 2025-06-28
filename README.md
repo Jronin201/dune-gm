@@ -13,6 +13,18 @@ Built for integration with OpenAI Playground, enabling die rolls, NPC creation, 
 
 Deploy as an API backend with FastAPI. Connect endpoints to your OpenAI Playground Tools.
 
+### `/chat` Endpoint
+
+Send a `POST` request to `/chat` with a JSON body containing `{"message": "..."}`.
+Begin the message with `|` to invoke a backend command. For example:
+
+```bash
+curl -X POST /chat -H "Content-Type: application/json" \
+     -d '{"message": "| create scenario"}'
+```
+
+Commands must match exactly. Extra punctuation is ignored, so `| create scenario!` will **not** be recognized.
+
 ## Structure
 
 - `dune-backend/src/dice.py` - FastAPI app and API routes
