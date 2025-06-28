@@ -2,6 +2,11 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+
+## Configuration
+
+Copy `.env.example` to `.env` and set `VITE_BACKEND_URL` to the backend base URL (e.g. http://localhost:8000).
+
 ## Available Scripts
 
 In the project directory, you can run:

@@ -1,5 +1,7 @@
+const API_BASE = import.meta.env.VITE_BACKEND_URL || '';
+
 export async function fetchD20() {
-  const res = await fetch('http://localhost:8000/roll/1d20');
+  const res = await fetch(`${API_BASE}/roll/1d20`);
   if (!res.ok) {
     throw new Error(`API error: ${res.status}`);
   }
@@ -8,7 +10,7 @@ export async function fetchD20() {
 }
 
 export async function fetch2D20() {
-  const res = await fetch('http://localhost:8000/roll/2d20');
+  const res = await fetch(`${API_BASE}/roll/2d20`);
   if (!res.ok) {
     throw new Error(`API error: ${res.status}`);
   }
@@ -18,14 +20,14 @@ export async function fetch2D20() {
 
 export async function sendMessage(message) {
   const trimmed = message.trim();
-  let url = 'http://localhost:8000/chat';
+  let url = `${API_BASE}/chat`;
   let body = { message };
 
   if (
     trimmed.startsWith('|') &&
     trimmed.slice(1).trim().toLowerCase() === 'create scenario'
   ) {
-    url = 'http://localhost:8000/generate_scenario';
+    url = `${API_BASE}/generate_scenario`;
     body = {};
   }
 
