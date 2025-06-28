@@ -1,13 +1,16 @@
 from pathlib import Path
 from fastapi import APIRouter, Body
 
-# Required for deployment on Render: import from local ``utils`` package
-from src.utils.random_picker import pick_random_item_from_file, get_random_scenario
+# local imports
+from src.utils.random_picker import get_random_scenario
 from src.utils.scenario_utils import generate_adventure_text
-
+from src.utils.command_router import cmd_test
 
 router = APIRouter()
 
+# ---------------------------------------------------------------------------
+#  Data-file locations (still used by get_random_scenario)
+# ---------------------------------------------------------------------------
 DATA_DIR = Path(__file__).resolve().parents[2] / "data"
 HOUSES_FILE = DATA_DIR / "houses.txt"
 SETTINGS_FILE = DATA_DIR / "settings.txt"
@@ -20,50 +23,54 @@ ARTIFACTS_FILE = DATA_DIR / "artifacts.txt"
 MYSTICISM_FILE = DATA_DIR / "mysticism.txt"
 CONSEQUENCES_FILE = DATA_DIR / "consequences.txt"
 
+# ---------------------------------------------------------------------------
+#  Simple helpers
+# ---------------------------------------------------------------------------
+
 
 @router.get("/random_scenario")
 def random_scenario() -> dict:
-    """Return a randomly generated scenario pulling one item from each data file."""
+    """Return a randomly generated scenario (legacy path)."""
     return get_random_scenario()
+
+# ---------------------------------------------------------------------------
+#  NEW: GET endpoint that Chatbot-UI calls for | Create Scenario
+# ---------------------------------------------------------------------------
 
 
 @router.get("/scenario_elements")
 def quick_scenario() -> dict:
-    """Return random scenario elements instantly plus a follow-up prompt."""
+    """Return random scenario elements plus a follow-up prompt."""
     scenario = get_random_scenario()
     return {
         "scenario": scenario,
-        "prompt": (
-            "Would you like me to craft these elements into a powerful scenario?"
-        ),
+        "prompt": "Would you like me to craft these elements into a powerful scenario?"
     }
+
+# ---------------------------------------------------------------------------
+#  POST / GET variants that deliver raw elements (kept for API compatibility)
+# ---------------------------------------------------------------------------
 
 
 @router.post("/generate_scenario")
 def generate_scenario(scenario: dict | None = None) -> dict:
-    """Return raw scenario elements and offer to craft a narrative."""
-    # Accept None **or** an empty dict as "no scenario provided"
-    if not scenario:  # catches None *and* {}
+    """Return elements (or supplied dict) with prompt."""
+    if not scenario:                      # None *or* {}
         scenario = get_random_scenario()
-
     return {
         "scenario": scenario,
-        "prompt": "Would you like me to craft these elements into a powerful scenario?",
+        "prompt": "Would you like me to craft these elements into a powerful scenario?"
     }
 
 
 @router.get("/generate_scenario")
 def generate_scenario_get() -> dict:
-    """GET variant of :func:`generate_scenario` returning random elements."""
-    scenario = get_random_scenario()
-    return {
-        "scenario": scenario,
-        "prompt": "Would you like me to craft these elements into a powerful scenario?",
-    }
+    """GET helper that always rolls fresh elements."""
+    return generate_scenario(None)
+
+# ---------------------------------------------------------------------------
+#  Simple test route for the | test command
+# ---------------------------------------------------------------------------
 
 
-@router.post("/generate_adventure")
-def generate_adventure(scenario: dict) -> dict:
-    """Return GPT-generated adventure text for the given scenario."""
-    adventure_text = generate_adventure_text(scenario)
-    return {"adventure_text": adventure_text}
+@router.get("/
