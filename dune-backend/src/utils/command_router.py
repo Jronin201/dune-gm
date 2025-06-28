@@ -1,6 +1,6 @@
 """Utility functions to parse and execute in-chat commands that start with '| '."""
 
-from utils.random_picker import get_random_scenario
+from src.utils.random_picker import get_random_scenario
 
 
 def cmd_create_scenario() -> str:
