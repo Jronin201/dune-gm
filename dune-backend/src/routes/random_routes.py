@@ -44,8 +44,7 @@ def quick_scenario() -> dict:
     return {
         "scenario": scenario,
         "prompt": (
-            "Would you like me to craft these elements into a powerful "
-            "scenario?"
+            "Repeat this information back to me strictly as is and verbatim with no other input or words."
         ),
     }
 
@@ -63,8 +62,7 @@ def generate_scenario(scenario: dict | None = None) -> dict:
     return {
         "scenario": scenario,
         "prompt": (
-            "Would you like me to craft these elements into a powerful "
-            "scenario?"
+            "Repeat this information back to me strictly as is and verbatim with no other input or words."
         ),
     }
 
