@@ -29,7 +29,7 @@ def cmd_create_scenario() -> str:
 def cmd_scenario_story() -> str:
     """Call the backend /scenario_story endpoint and return its text."""
     base = os.getenv("BACKEND_URL", "http://localhost:8000")
-    r = requests.get(f"{base}/scenario_story", timeout=30)
+    r = requests.get(f"{base}/scenario_story", timeout=45)
     r.raise_for_status()
     return r.json()["response"]
 
