@@ -78,5 +78,5 @@ def generate_adventure(scenario: dict) -> dict:
 def scenario_story() -> dict:
     """Return a complete narrative in one call."""
     scenario = get_random_scenario()
-    story = generate_adventure_text(scenario, max_tokens=800)
+    story = generate_adventure_text(scenario, max_tokens=1000)
     return {"response": story}
