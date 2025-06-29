@@ -74,3 +74,11 @@ def generate_adventure(scenario: dict) -> dict:
     """Return GPT-generated adventure text for the given scenario."""
     adventure_text = generate_adventure_text(scenario)
     return {"adventure_text": adventure_text}
+
+
+@router.get("/scenario_story")
+def scenario_story() -> dict:
+    """Return a complete narrative in one call."""
+    scenario = get_random_scenario()
+    story = generate_adventure_text(scenario, max_tokens=800)
+    return {"response": story}
