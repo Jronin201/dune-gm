@@ -5,8 +5,9 @@ from fastapi import HTTPException
 client = OpenAI()  # Uses OPENAI_API_KEY from env
 
 
-def generate_adventure_text(scenario: dict) -> str:
-    """Generate an adventure summary using GPT-4 based on the provided scenario."""
+def generate_adventure_text(scenario: dict, max_tokens: int | None = None) -> str:
+    """Generate an adventure summary using GPT-4 based on the provided scenario.
+    Optionally set ``max_tokens`` for the response."""
     scenario_text = "\n".join(f"- {k.capitalize()}: {v}" for k, v in scenario.items())
 
     prompt = f"""
@@ -30,6 +31,7 @@ Begin your summary:
                 {"role": "user", "content": prompt},
             ],
             temperature=0.75,
+            max_tokens=max_tokens,
         )
     except openai.OpenAIError as exc:
         # When the request fails (e.g., missing API key or network issue),
